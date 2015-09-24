@@ -1,258 +1,69 @@
+<script type="application/javascript" src="http://groups.northwestern.edu/boneheads/scripts/angular.min.js"></script>
+<script type="application/javascript">
+angular.module('meet',[])
+.controller('MembersController', function($scope, MembersService) {
+	$scope.members = {};
+	$scope.getPic = function(file) {
+		return 'http://groups.northwestern.edu/boneheads/pulsepro/data/img/gallery/meet-us-pictures/'+file;
+	}
+	MembersService.getMembers().then(function() {
+		$scope.members = MembersService.members;
+	});
+})
+.factory('MembersService', function($http) {
+	var url = 'http://groups.northwestern.edu/boneheads/scripts/misc.php';
+	var factory = {};
+	factory.members = {};
+	factory.getMembers = function() {
+		return $http.post(url, {a:'getMembers'})
+		.success(function(data) {
+			factory.members = data.members;
+		});
+	}
+	return factory;
+});
+</script>
+<div x-ng-app="meet" x-ng-controller="MembersController">
 <h1>Meet the Boneheads</h1>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
-<div><img alt="Buford C. Pilaf" src="http://groups.northwestern.edu/boneheads/bufordcpilaf.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " /><u>Name</u>: Michael Creatura</div>
-<div><u>Major</u>: History</div>
-<div><u>Graduation Year</u>: 2015</div>
-<div><u>Height</u>: 6&#39; 0&quot;</div>
-<div><u>Favorite TV show</u>: Mythbusters</div>
-<div><u>Favorite Food</u>: Cheeseburgers</div>
-<div><u>Why I joined NUMB</u>:&nbsp;<span style="color: rgb(51, 51, 51); font-family: arial, sans-serif; font-size: 13px; ">To keep playing trombone after high school, try something new, meet people early</span></div>
-<div><u>Favorite Bonehead Memory</u>: Winning a bar of soap the first day of being a bonehead</div>
-<div><u>Boxers or Briefs</u>: Boxers, although boxer briefs sound strangely perfect, I may need to try them</div>
-<div><u>Secret talents</u>: I break things and fix them again</div>
-<div><u>Favorite Color</u>: Purple, dark blue</div>
+<div x-ng-repeat="x in members.current | orderBy:'year'">
+    <img src="{{getPic(x.picture)}}" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px;" />
+    <div><u>Name</u>: {{x.gov_name}}</div>
+    <div><u>Major</u>: {{x.major}}</div>
+    <div><u>Graduation Year</u>: {{x.year}}</div>
+    <div><u>Height</u>: {{x.height}}</div>
+    <div><u>Favorite TV show</u>: {{x.tv}}</div>
+    <div><u>Favorite Food</u>: {{x.food}}</div>
+    <div><u>Why I joined NUMB</u>: {{x.joined}}</div>
+    <div><u>Favorite Bonehead Memory</u>: {{x.memory}}</div>
+    <div><u>Boxers or Briefs</u>: {{x.underwear}}</div>
+    <div><u>Secret talents</u>: {{x.talent}}</div>
+    <div><u>Favorite Color</u>: {{x.color}}</div>
+    <div>&nbsp;</div>
 <div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><img alt="Zinger" src="http://groups.northwestern.edu/boneheads/zinger.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " /><u>Name</u>: Neal Kfoury</div>
-<div><u>Major</u>: All of the majors</div>
-<div><u>Graduation Year</u>: 2015</div>
-<div><u>Height</u>: 183 cm</div>
-<div><u>Favorite TV show</u>: Flight of the Conchords</div>
-<div><u>Favorite Food</u>: Waffles</div>
-<div><u>Why I joined NUMB</u>: To see how long it would take them to kick me out of NUMB for not knowing how to play the trombone</div>
-<div><u>Favorite Bonehead Memory</u>: Never being kicked out of NUMB for not knowing how to play the trombone</div>
-<div><u>Boxers or Briefs</u>: Neither</div>
-<div><u>Secret talents</u>: Surviving</div>
-<div><u>Favorite Color</u>: Gray</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><img alt="Colonel Michelangelo" src="http://groups.northwestern.edu/boneheads/colonel.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " /><u>Name</u>: Tim Perian</div>
-<div><u>Major</u>: Music Education/ Euphonium Performance</div>
-<div><u>Graduation Year</u>: 2015</div>
-<div><u>Height</u>: 5&#39; 10&quot;</div>
-<div><u>Favorite TV show</u>: The Office</div>
-<div><u>Favorite Food</u>: Deep Dish Pizza</div>
-<div><u>Why I joined NUMB</u>: I loved marching in high school, and wanted to keep up my trombone playing</div>
-<div><u>Favorite Bonehead Memory</u>: Texas Bowl Game!</div>
-<div><u>Boxers or Briefs</u>: Boxer-briefs</div>
-<div><u>Secret talents</u>: Are staying secret even from me</div>
-<div><u>Favorite Color</u>: Can I say anything but purple?</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><u><img alt="Skittles" src="http://groups.northwestern.edu/boneheads/skittles.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " />Name</u>: Megan Wines</div>
-<div><u>Major</u>: Theatre!</div>
-<div><u>Graduation Year</u>: 2015</div>
-<div><u>Height</u>: 5&#39; 4&quot;</div>
-<div><u>Favorite TV show</u>: Scrubs</div>
-<div><u>Favorite Food</u>: Potatoes</div>
-<div><u>Why I joined NUMB</u>: Because who doesn&#39;t love a theatre kid armed with a trombone?</div>
-<div><u>Favorite Bonehead Memory</u>: BONEHEAD STORYTIME!!!!!!</div>
-<div><u>Boxers or Briefs</u>: boxers ;)</div>
-<div><u>Secret talents</u>: my shoulders are double jointed</div>
-<div><u>Favorite Color</u>: Purple</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><u><img alt="Twinkie" src="http://groups.northwestern.edu/boneheads/twinkie.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " />Name</u>: Aaron Blow</div>
-<div><u>Major</u>: Biology</div>
-<div><u>Graduation Year</u>: 2016</div>
-<div><u>Height</u>: 6&#39;0&quot;</div>
-<div><u>Favorite TV show</u>: Scrubs</div>
-<div><u>Favorite Food</u>: Qdoba Burritos</div>
-<div><u>Why I joined NUMB</u>: To meet new people :D</div>
-<div><u>Favorite Bonehead Memory</u>: Growl Contest Champs</div>
-<div><u>Boxers or Briefs</u>: Bawksers</div>
-<div><u>Secret talents</u>: Balancing stuff on myself (trombone on the foot)</div>
-<div><u>Favorite Color</u>: Blue</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><u><img alt="The Twizzler" src="http://groups.northwestern.edu/boneheads/twizzler.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " />Name</u>: Michael Fagan</div>
-<div><u>Major</u>: Biology</div>
-<div><u>Graduation Year</u>: 2016</div>
-<div><u>Height</u>: 5&#39;11&quot;</div>
-<div><u>Favorite TV show</u>: Family Guy</div>
-<div><u>Favorite Food</u>: Anything with Pasta</div>
-<div><u>Why I joined NUMB</u>: I love marching band and it&#39;s a good way to get to know people before the school year even starts.</div>
-<div><u>Favorite Bonehead Memory</u>: A certain board game played with a certain beverage...Also, Team Carrot.</div>
-<div><u>Boxers or Briefs</u>: BOXER-BRIEFS</div>
-<div><u>Secret talents</u>: I can talk like Stitch from Lilo and Stitch...</div>
-<div><u>Favorite Color</u>: Other than Purple?...Red!</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><u><img alt="King Dragon Pantsworth IV" src="http://groups.northwestern.edu/boneheads/pants.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " />Name</u>: Michael Nowakowski</div>
-<div><u>Major</u>: Radio, Television, and Film</div>
-<div><u>Graduation Year</u>: 2016</div>
-<div><u>Height</u>: 6&#39; 2&quot; ...ish</div>
-<div><u>Favorite TV show</u>: Sherlock (the BBC one!)</div>
-<div><u>Favorite Food</u>: Pasta, or really most any Italian foods</div>
-<div><u>Why I joined NUMB</u>: &#39;Cuz it&#39;s the best.</div>
-<div><u>Favorite Bonehead Memory</u>: Every single one of our legally and morally questionable activities. They&#39;re my favorite.</div>
-<div><u>Boxers or Briefs</u>: Boxers</div>
-<div><u>Secret talents</u>: Cooking, especially really fancy French desserts</div>
-<div><u>Favorite Color</u>: PURPLE (or sometimes blue)</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><u><img alt="Flame.orgy" src="http://groups.northwestern.edu/boneheads/flame.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " />Name</u>: Adam Snyder</div>
-<div><u>Major</u>: Radio/TV/Film and Computer Science</div>
-<div><u>Graduation Year</u>: 2016</div>
-<div><u>Height</u>: 6&#39;0&quot;</div>
-<div><u>Favorite TV show</u>: Breaking Bad and Dollhouse</div>
-<div><u>Favorite Food</u>: Falafel</div>
-<div><u>Why I joined NUMB</u>: I had a craving that only bones could satisfy</div>
-<div><u>Favorite Bonehead Memory</u>: Making the bonehead Go U music video</div>
-<div><u>Boxers or Briefs</u>: I HAVE A CONDITION</div>
-<div><u>Secret talents</u>: Talking about everything except what&#39;s on my mind</div>
-<div><u>Favorite Color</u>: Purplish-green</div>
+</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <h1>Meet the Bonehead Alums</h1>
-<div><u><img alt="Tom &quot;The T&quot; Willadsen" src="http://groups.northwestern.edu/boneheads/pulsepro/data/img/uploads/images/Tom%20The%20T%20Willadson.png" style="width: 150px; height: 146px; float: right; margin-left: 15px; margin-right: 15px;" />Name</u>: Tom &ldquo;The T&rdquo; Willadsen</div>
-<div>
-	<div><u>Majors</u>: Urban Studies and History&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-</div>
-<div>
-	<div><u>Graduation Year</u>: 1986&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-</div>
-<div>
-	<div><u>Height</u>: 5&rsquo;8&rdquo;&nbsp;&nbsp;&nbsp;</div>
-</div>
-<div>
-	<div><u>Favorite TV show</u>: The Simpsons</div>
-</div>
-<div>
-	<div><u>Favorite Food</u>: Egg rolls at the Mekong, corner of Broadway &amp; Argyle in Chicago&rsquo;s Uptown</div>
-</div>
-<div>
-	<div><u>Why I joined NUMB</u>:&nbsp;My mother&mdash;who lives in Peoria, Illinois, read the mailing in the summer of 1982 and said, &ldquo;That&rsquo;s where all the fun kids are.&rdquo;</div>
-	<div><u>Favorite Bonehead Memory</u>: When the microphone failed at the State National Bank gig in downtown Evanston in September 1985, they handed me a bullhorn to use as I addressed the crowd.&nbsp; I turned to the bank and said, &ldquo;We have the place surrounded, come out with your hands up.&rdquo;</div>
-	<div><u>Boxers or Briefs</u>: Yes please.</div>
-	<div><u>Secret talents</u>: I can balance up to 9 spoons on my face.</div>
-	<div><u>Favorite Color</u>: Purple.&nbsp; [duh.]</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div x-ng-repeat="x in members.alums | orderBy:'year':true">
+    <img src="{{getPic(x.picture)}}" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px;" />
+    <div><u>Name</u>: {{x.gov_name}}</div>
+    <div><u>Major</u>: {{x.major}}</div>
+    <div><u>Graduation Year</u>: {{x.year}}</div>
+    <div><u>Height</u>: {{x.height}}</div>
+    <div><u>Favorite TV show</u>: {{x.tv}}</div>
+    <div><u>Favorite Food</u>: {{x.food}}</div>
+    <div><u>Why I joined NUMB</u>: {{x.joined}}</div>
+    <div><u>Favorite Bonehead Memory</u>: {{x.memory}}</div>
+    <div><u>Boxers or Briefs</u>: {{x.underwear}}</div>
+    <div><u>Secret talents</u>: {{x.talent}}</div>
+    <div><u>Favorite Color</u>: {{x.color}}</div>
+    <div>&nbsp;</div>
+<div>&nbsp;</div>
 </div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
-<div>
-	<p><u><img alt="Viscount Thomas Edison" src="http://groups.northwestern.edu/boneheads/viscount.jpg" style="margin-left: 15px; margin-right: 15px; margin-top: 0px; margin-bottom: 0px; float: right; width: 150px; height: 200px; " /></u></p>
-	<div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Name</u>: Alex Gough</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Major</u>: Environmental Science</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Graduation Year</u>: 2012</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Height</u>: 6&#39;2&quot;</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Favorite TV show</u>: Better Off Ted</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Favorite Food</u>: The cashew</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Why I joined NUMB</u>: Marching pwns n00bs</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Favorite Bonehead Memory</u>: The &quot;8th&quot; position.</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Boxers or Briefs</u>: Boxer Briefs</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Secret talents</u>: Riding the trombone</div>
-		<div style="font-family: sans-serif; font-size: 13px; line-height: 16.003px;"><u>Favorite Color</u>: Purple</div>
-	</div>
-	<br />&nbsp;</div>
-<div>&nbsp;</div>
-<div><u><img alt="Nyxem.e" src="http://groups.northwestern.edu/boneheads/nyxem.jpg" style="margin-left: 15px; margin-right: 15px; margin-top: 0px; margin-bottom: 0px; float: right; width: 150px; height: 200px; " />Name</u>: Alex Moe</div>
-<div><u>Major</u>: Exploratory Studies</div>
-<div><u>Graduation Year</u>: 2012</div>
-<div><u>Height</u>: 5&#39;10&#39;&#39;, depending on hair</div>
-<div><u>Favorite TV show</u>: SNL</div>
-<div><u>Favorite Food</u>: Nan</div>
-<div><u>Why I joined NUMB</u>: NUMB somewhat lends itself to non-music majors who want to continue playing. Also, it sounded reasonably fun.</div>
-<div><u>Favorite Bonehead Memory</u>:&nbsp;Indoctrination at Band Camp &#39;08</div>
-<div><u>Boxers or Briefs</u>: Boxer briefs; best of both worlds</div>
-<div><u>Secret talents</u>:&nbsp;&nbsp;I sleep with my shoulder dislocated, and use my arm as a pillow. (Don&#39;t knock it unless you&#39;ve tried it!)</div>
-<div><u>Favorite Color</u>: Deep slate blue</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><img alt="Panama" src="http://groups.northwestern.edu/boneheads/panama.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " /><u>Name</u>: Alex Straley</div>
-<div><u>Major</u>: Learning and Organizational Change</div>
-<div><u>Graduation Year</u>: 2013</div>
-<div><u>Height</u>: 5&#39;9&quot;</div>
-<div><u>Favorite TV show</u>: Doctor Who</div>
-<div><u>Favorite Food</u>: Sweet and Sour Chicken</div>
-<div><u>Why I joined NUMB</u>: Duh</div>
-<div><u>Favorite Bonehead Memory</u>: First March of Death</div>
-<div><u>Boxers or Briefs</u>: Boxer Briefs muahhahaha</div>
-<div><u>Secret talents</u>: All of them</div>
-<div><u>Favorite Color</u>: Purple</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><u><img alt="Regent Samuel Clemens" src="http://groups.northwestern.edu/boneheads/regent.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " />Name</u>: Andres Caneva<br /><u>Major</u>: Biology<br /><u>Graduation Year</u>: 2013<br /><u>Height</u>: 7&#39; 2&quot;<br /><u>Favorite TV show</u>: Scrubs<br /><u>Favorite Food</u>: Pizzzzza<br /><u>Why I joined NUMB</u>: I wanted to be cool.<br /><u>Favorite Bonehead Memory</u>: Riding the rollercoasters at Busch Gardens during the Outback Bowl<br /><u>Boxers or Briefs</u>: BOXERS<br /><u>Secret talents</u>: I have homing pigeon senses.<br /><u>Favorite Color</u>: Purple (bluish green)</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><u><img alt="The Commando" src="http://groups.northwestern.edu/boneheads/thecommando.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " />Name</u>: Motoki Mizoguchi</div>
-<div><u>Major</u>: Electrical Engineering</div>
-<div><u>Graduation Year</u>: 2013</div>
-<div><u>Height</u>: 5&#39;6&quot;</div>
-<div><u>Favorite TV show</u>: LOST</div>
-<div><u>Favorite Food</u>: Italian</div>
-<div><u>Why I joined NUMB</u>: I wanted to see if I could get connections before Concert Band.</div>
-<div><u>Favorite Bonehead Memory</u>: Whirlyball</div>
-<div><u>Boxers or Briefs</u>: Boxers</div>
-<div><u>Secret talents</u>: Be illiterate in the English language and still make it to NU. I think that&#39;s talent.</div>
-<div><u>Favorite Color</u>: Purple</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><u><img alt="Conficker.c" src="http://groups.northwestern.edu/boneheads/conyay.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " />Name</u>: Phillip Smith</div>
-<div><u>Major</u>: Chemical Engineering</div>
-<div><u>Graduation Year</u>: 2013</div>
-<div><u>Height</u>: 5&#39;8&quot;</div>
-<div><u>Favorite TV show</u>: Six Feet Under</div>
-<div><u>Favorite Food</u>: Apple Pie</div>
-<div><u>Why I joined NUMB</u>: I love music and I thought it would be a great way to become familiar with Northwestern.</div>
-<div><u>Favorite Bonehead Memory</u>: Cramming about thirty people into the Seabury suite to watch The Apple</div>
-<div><u>Boxers or Briefs</u>: Boxers (except for when I&#39;m running)</div>
-<div><u>Secret talents</u>: Immunity to Northwestern Athletics despondency</div>
-<div><u>Favorite Color</u>: Red</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><img alt="IV" src="http://groups.northwestern.edu/boneheads/IV.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " /><u>Name</u>: Violet Zerbe</div>
-<div><u>Major</u>: Social Policy and Environmental Science</div>
-<div><u>Graduation Year</u>: 2014</div>
-<div><u>Height</u>: 5&#39; 8&quot;</div>
-<div><u>Favorite TV show</u>: Fringe</div>
-<div><u>Favorite Food</u>: Baked Bread</div>
-<div><u>Why I joined NUMB</u>: Community</div>
-<div><u>Favorite Bonehead Memory</u>: March of Death</div>
-<div><u>Boxers or Briefs</u>: Spandex</div>
-<div><u>Secret talents</u>: It wouldn&#39;t be a secret if I tol you ;D</div>
-<div><u>Favorite Color</u>: Purple</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>
-	<div><u><img alt="Baroness Florence Nightingale" src="http://groups.northwestern.edu/boneheads/baroness.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " />Name</u>: Ashley Doody</div>
-	<div><u>Major</u>: Mathematics</div>
-	<div><u>Graduation Year</u>: 2014</div>
-	<div><u>Height</u>: 5&#39; 4&quot;</div>
-	<div><u>Favorite TV show</u>: White Collar</div>
-	<div><u>Favorite Food</u>: Pesto</div>
-	<div><u>Why I joined NUMB</u>: To continue playing the trombone and meet new people</div>
-	<div><u>Favorite Bonehead Memory</u>: Losing a shoe during march of death</div>
-	<div><u>Boxers or Briefs</u>: Some things are best let to the imagination</div>
-	<div><u>Secret talents</u>: Multitasking (e.g. doing homework and watching television at the same time)</div>
-	<div><u>Favorite Color</u>: Purple</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div><img alt="Rio Connor" src="http://groups.northwestern.edu/boneheads/rio.jpg" style="margin-left: 15px; margin-right: 15px; margin-top: 0px; margin-bottom: 0px; float: right; width: 150px; height: 200px; " /><u>Name</u>: Sara Shakin</div>
-	<div><u>Major</u>: Biology and Psychology (until I change my mind again)</div>
-	<div><u>Graduation Year</u>: 2014</div>
-	<div><u>Height</u>: 5&#39;6&#39;&#39;</div>
-	<div><u>Favorite TV show</u>: Bones</div>
-	<div><u>Favorite Food</u>: Chocolate</div>
-	<div><u>Why I joined NUMB</u>: I thought it would be a fun way to continue playing trombone and meet a bunch of new people.</div>
-	<div><u>Favorite Bonehead Memory</u>: Learning pre-game in three run throughs</div>
-	<div><u>Boxers or Briefs</u>: ...</div>
-	<div><u>Secret talents</u>: Flying trapeze</div>
-	<div><u>Favorite Color</u>: purple/blue</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div><img alt="The Vespanator" src="http://groups.northwestern.edu/boneheads/vespanator.jpg" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px; height: 200px; " /><u>Name</u>: Tom Saxton</div>
-	<div><u>Major</u>: Computer Science</div>
-	<div><u>Graduation Year</u>: 2014</div>
-	<div><u>Height</u>: 5&#39;7&quot;... my driver&#39;s license says so...</div>
-	<div><u>Favorite TV show</u>: Babylon 5... Doctor Who... Merlin... Sherlock</div>
-	<div><u>Favorite Food</u>: Goldfish</div>
-	<div><u>Why I joined NUMB</u>: I loved marching band, and wanted to keep being a part of it.</div>
-	<div><u>Favorite Bonehead Memory</u>: Winning the Gator Bowl... or marching on Wrigley Field... or basically anything...</div>
-	<div><u>Boxers or Briefs</u>: should be changed daily...</div>
-	<div><u>Secret talents</u>: Well, I play trombone... do I need any other talents?</div>
-	<div><u>Favorite Color</u>: PURPLE! (I love purple, it&#39;s my favorite!)</div>
 </div>
-<p>&nbsp;</p>

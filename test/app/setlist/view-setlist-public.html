@@ -1,0 +1,10 @@
+<div id="songsWrapper">
+    <p x-ng-repeat="x in songs">
+        <span class="songCol"><img class="pointer" button-img="{{x.playStatus}}" alt="play" x-play-button="{{x.id}}" /></span>
+        <span class="songCol">{{x.name}}</span>
+        <span class="songCol">{{x.length | filters.time}}</span>
+        <span class="songCol">{{x.description}}</span>
+        <span class="songCol"><img class="pointer" button-img="download" alt="download" /></span>
+
+    </p>
+</div>

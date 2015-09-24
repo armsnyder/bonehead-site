@@ -1,0 +1,10 @@
+# INSTRUCTIONS
+# This file is only needed if you have URL rewrites enabled for the blog.
+# Copy the contents of this file into a file called ".htaccess" and place it in the root of your domain (example.com/.htaccess).
+# In both rewrite rules below, change "blog.php" to the name of the file you embedded the blog into.
+# The file you embedded into must be located in the domain root.
+# Examples: example.com/blog.php, example.com/index.php, etc.
+
+RewriteEngine On  
+RewriteRule ^blog-page-([^-]*)$ blog.php?page=$1 [L]                                
+RewriteRule ^blog-([^-]*)+? blog.php?d=$1 [L]

@@ -1,0 +1,91 @@
+form#contact {
+    margin-left: 0px;
+    margin-bottom: 30px;
+    margin-right: 0px;
+    margin-top: 0px;
+    max-width: 450px;
+    font-family: sans-serif;
+    padding: 20px;
+    background-color: #eeeeee;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+form#contact label {
+    line-height: 1.50;
+    font-size: 14px;
+    color: #555;
+}
+
+form#contact input{
+    font-family: Helvetica, Arial, sans-serif;
+    border-color: #cccccc;
+    border-style: solid;
+    line-height: 22px;
+    width: 100%;
+    max-width: 300px;
+    color: #333333;
+    font-size: 12px;
+    margin-bottom: 10px;
+    padding: 2px;
+    border-width: 1px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+form#contact textarea {
+    border-color: #cccccc;
+    border-style: solid;
+    line-height: 22px;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 100%;
+    max-width: 400px;
+    color: #333333;
+    font-size: 12px;
+    padding: 2px;
+    border-width: 1px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+form#contact fieldset { padding: 0px; border-width: 0px }
+
+form#contact button {
+    margin-top: 10px;
+    font-size: 12px;
+    padding-left: 15px;
+    padding-bottom: 6px;
+    padding-right: 15px;
+    padding-top: 6px;
+    border-width: 0px;
+    background-color: #666;
+    color: white;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+form#contact button:hover { background-color: #444;}
+
+form#contact :focus {
+	outline:0;
+	outline:none;
+}
+
+form#contact #human {
+    height: 0px;
+    width: 0px;
+    visibility:hidden;  
+    display:none;  
+}
+
+.msg-green {
+	color: #418140;
+}
+
+.msg-red {
+	color: #b3262f;
+}

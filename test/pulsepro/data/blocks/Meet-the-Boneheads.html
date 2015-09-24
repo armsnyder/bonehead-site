@@ -1,0 +1,42 @@
+<h1>Meet the Boneheads</h1>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div x-ng-repeat="x in members.current | orderBy:'year'">
+	<img src="{{getPic(x.picture)}}" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px;" />
+	<div><u>Name</u>: {{x.gov_name}}</div>
+	<div><u>Major</u>: {{x.major}}</div>
+	<div><u>Graduation Year</u>: {{x.year}}</div>
+	<div><u>Height</u>: {{x.height}}</div>
+	<div><u>Favorite TV show</u>: {{x.tv}}</div>
+	<div><u>Favorite Food</u>: {{x.food}}</div>
+	<div><u>Why I joined NUMB</u>: {{x.joined}}</div>
+	<div><u>Favorite Bonehead Memory</u>: {{x.memory}}</div>
+	<div><u>Boxers or Briefs</u>: {{x.underwear}}</div>
+	<div><u>Secret talents</u>: {{x.talent}}</div>
+	<div><u>Favorite Color</u>: {{x.color}}</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<h1>Meet the Bonehead Alums</h1>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div x-ng-repeat="x in members.alums | orderBy:'year':true">
+	<img src="{{getPic(x.picture)}}" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px;" />
+	<div><u>Name</u>: {{x.gov_name}}</div>
+	<div><u>Major</u>: {{x.major}}</div>
+	<div><u>Graduation Year</u>: {{x.year}}</div>
+	<div><u>Height</u>: {{x.height}}</div>
+	<div><u>Favorite TV show</u>: {{x.tv}}</div>
+	<div><u>Favorite Food</u>: {{x.food}}</div>
+	<div><u>Why I joined NUMB</u>: {{x.joined}}</div>
+	<div><u>Favorite Bonehead Memory</u>: {{x.memory}}</div>
+	<div><u>Boxers or Briefs</u>: {{x.underwear}}</div>
+	<div><u>Secret talents</u>: {{x.talent}}</div>
+	<div><u>Favorite Color</u>: {{x.color}}</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
