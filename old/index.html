@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>NUMB Trombones</title>
+
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/vnd.microsoft.icon" href="http://groups.northwestern.edu/boneheads/cresticon.ico">
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="fadeslideshow.js">
+/***********************************************
+* Ultimate Fade In Slideshow v2.0- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+***********************************************/
+</script>
+<script type="text/javascript">
+var mygallery=new fadeSlideShow({
+wrapperid: "galleryContent_W", //ID of blank DIV on page to house Slideshow
+dimensions: [500, 310], //width/height of gallery in pixels. Should reflect dimensions of largest image
+imagearray: [
+["http://img197.imageshack.us/img197/4565/lakefillsectional.jpg", "http://groups.northwestern.edu/boneheads/join.html", "", "Find Out How You Can Become a Bonehead!"],
+["http://groups.northwestern.edu/boneheads/band_camp_05.jpg", "http://groups.northwestern.edu/boneheads/funandtraditions.html", "", "Read About the Fun and Traditions of the Boneheads"],
+["http://groups.northwestern.edu/boneheads/bonehead_cowboys.jpg", "http://groups.northwestern.edu/boneheads/members.html", "", "Meet The Boneheads!"] //<--no trailing comma after very last image element!
+],
+displaymode: {type:'auto', pause:6000, cycles:0, wraparound:false},
+persist: false, //remember last viewed slide and recall within same session?
+fadeduration: 1500, //transition duration (milliseconds)
+descreveal: "always",
+togglerid: "",
+nav: function(num){
+mygallery.navigate(num);
+var dm = mygallery.setting.displaymode;
+if(typeof dm.timer !== 'undefined'){
+clearTimeout(dm.timer);
+}
+dm.timer = setTimeout(function(){
+if(dm.type !== 'auto'){
+dm.type = 'auto';
+mygallery.showslide('next');
+}
+}, dm.pause);
+}
+})
+</script>
+<script type="text/javascript" src="gradualfader.js">
+/***********************************************
+* Gradual Element Fader- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* Visit http://www.dynamicDrive.com for hundreds of DHTML scripts
+* This notice must stay intact for legal use
+***********************************************/
+</script>
+<style type="text/css">
+.gradualfader{filter:progid:DXImageTransform.Microsoft.alpha(opacity=60); -moz-opacity:0.6; opacity:0.6;}
+</style>
+</head>
+
+ <body>
+<div id="Container">
+<div id="Header"> <a href="/"><img src="Bonehead_Header_1024x135.gif" alt="NUMB Trombones :: Northwestern University Marching Band" title="NUMB Trombones :: Northwestern University Marching Band" height="100%"></a> </div>
+<div id="Navbar">
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="join.html">Become a Bonehead!</a></li>
+<li><a href="testimonials.html">Testimonials</a></li>
+<li><a href="funandtraditions.html">Fun and
+Traditions</a></li>
+<li><a href="multimedia.html">Multimedia</a></li>
+<li><a href="members.html">Meet the Boneheads</a></li>
+</ul>
+</div>
+<div id="Content">
+<div id="LeftContainer">
+<div id="FeaturedContent">
+<div id="leftSidebarGallery" style="width: 210px; float: right;"> <a href="#" onclick="mygallery.setting.nav(0); return false;"><img src="lakefillthumb.jpg" name="galleryThumb01" class="gallery gradualfader" id="galleryThumb01" style="opacity: 0.4; margin-bottom: 5px;" border="0" height="100" width="200"></a> <a href="#" onclick="mygallery.setting.nav(1); return false;"><img src="bandcampthumb.jpg" name="galleryThumb02" class="gallery gradualfader" id="galleryThumb02" style="opacity: 0.4; margin-bottom: 5px;" border="0" height="100" width="200"></a> <a href="#" onclick="mygallery.setting.nav(2); return false;"><img src="alamothumb.jpg" name="galleryThumb03" class="gallery gradualfader" id="galleryThumb03" style="opacity: 0.4;" border="0" height="100" width="200"></a> </div>
+<div id="galleryWrap_W">
+<div id="galleryContent_W">
+<div class="gallerylayer"> </div>
+<div class="gallerylayer"> </div>
+<img src="loading.gif"></div>
+</div>
+<script type="text/javascript">
+gradualFader.init() //activate gradual fader
+</script>
+<!--On Home Page: Slideshow highlighting something important.<br><br>
+
+On other pages: Title, first block of text (large font) and images.-->
+<!-- <img src="FunAndTraditions.png"> --> </div>
+<!-- Twitter -->
+<div id="Twitter">
+<div id="twitter_div">
+<div style="font-size: 14px;"><a href="http://twitter.com/TheBoneheads">@TheBoneheads</a></div>
+<ul id="twitter_update_list">
+</ul>
+<a href="http://twitter.com/TheBoneheads" id="twitter-link" style="display: block; text-align: right; font-size: 11px;">Follow
+the Boneheads on Twitter!</a> </div>
+<script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
+<script type="text/javascript" src="http://twitter.com/statuses/user_timeline/TheBoneheads.json?callback=twitterCallback2&amp;count=1">
+</script>
+</div>
+<div id="MainContent">
+<div style="width: 95%; margin-right: 5%;">
+<p style="text-align: left; font-size: 16px; font-weight: bold;">The
+Latest From the Boneheads:</p>
+<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.facebook.com%2Ffeeds%2Fnotes.php%3Fid%3D169383846425%26viewer%3D698051050%26key%3D856624df35%26format%3Drss20&amp;chan=n&amp;num=1&amp;date=n&amp;html=a"></script>
+<noscript> <a
+href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.facebook.com%2Ffeeds%2Fnotes.php%3Fid%3D169383846425%26viewer%3D698051050%26key%3D856624df35%26format%3Drss20&chan=n&num=1&date=n&html=y">View
+Feed</a> </noscript>
+</div>
+<p style="text-align: center; font-size: 16px; font-weight: bold;">Read
+more and follow the Boneheads on <a href="http://www.facebook.com/notes.php?id=169383846425">Facebook</a></p>
+</div>
+</div>
+<div id="RightContent">
+<div id="NyxemTrombone" style="width: 200px; height: auto; margin-top: 5px; margin-bottom: 5px;">
+<img src="nyxem-trombone.png" alt="Go 'Cats!" title="Go 'Cats!" border="0">
+<p style="color: rgb(255, 255, 255); font-size: 12px; margin-top: 0px;">
+<script language="JavaScript">
+/* Note: January is 0, February is 1, etc. */
+var CMU=new Date();
+CMU.setFullYear(2010,8,25);
+var KidsFare=new Date();
+KidsFare.setFullYear(2010,9,2);
+var Purdue=new Date();
+Purdue.setFullYear(2010,9,9);
+var MSU=new Date();
+MSU.setFullYear(2010,9,23);
+var Indiana=new Date();
+Indiana.setFullYear(2009,9,30);
+var Penn=new Date();
+Penn.setFullYear(2010,10,6);
+var Iowa=new Date();
+Iowa.setFullYear(2010,10,13); var Illinois=new Date();
+Illinois.setFullYear(2010,10,20);
+var Wisconsin=new Date();
+Wisconsin.setFullYear(2010,10,27);
+var today = new Date();
+if (CMU>today)
+{
+document.write("Join the Boneheads at Ryan Field as they cheer for the 'Cats against <a href='http://nusports.cstv.com/sports/m-footbl/sched/nw-m-footbl-sched.html'>Central Michigan University</a> on September 25!");
+}
+else if (KidsFare>today)
+{
+document.write("Join the Boneheads on October 2, 2010 at their next performance with NUMB, <a href='http://www.pickstaiger.org/concerts/details/530-kids-fare-march-with-the-band'>Kids' Fare: March With the Band</a>!");
+}
+else if (Purdue>today)
+{
+document.write("Join the Boneheads at Ryan Field as they cheer for the 'Cats against <a http://nusports.cstv.com/sports/m-footbl/sched/nw-m-footbl-sched.html'>Purdue</a> on October 9!")
+}
+else if (MSU>today)
+{
+document.write("Join the Boneheads on Homecoming Weekend, October 23rd, against <a href='http://nusports.cstv.com/sports/m-footbl/sched/nw-m-footbl-sched.html'>Michigan State</a>!")
+}
+else if(Indiana>today)
+{
+document.write("Join the Boenehads at Ryan Field as they cheer for the 'Cats against <a href='http://nusports.cstv.com/sports/m-footbl/sched/nw-m-footbl-sched.html'>Indiana</a> on October 30!")
+}
+else if(Penn>today)
+{
+document.write("Though they won't be there, join the Boneheads in cheering on the 'Cats as they travel to <a href='http://nusports.cstv.com/sports/m-footbl/sched/nw-m-footbl-sched.html'>Penn State</a> on November 6!")
+}
+else if (Iowa>today)
+{
+document.write("Join the Boneheads at Ryan Field as they cheer for the 'Cats against <a href='http://nusports.cstv.com/sports/m-footbl/sched/nw-m-footbl-sched.html'>Iowa</a> on November 13!")
+}
+else if (Illinois>today)
+{
+document.write("Join the Boneheads at Wrigley Field as they cheer for the 'Cats against <a href='http://nusports.cstv.com/sports/m-footbl/sched/nw-m-footbl-sched.html'>Illinois</a> on November 20!")
+}
+else if (Wisconsin>today)
+{
+document.write("Though the Boneheads won't be there, join them in cheering on the 'Cats as they travel to <a href='http://nusports.cstv.com/sports/m-footbl/sched/nw-m-footbl-sched.html'>Wisconsin</a> on November 27 for a Thanksgiving regular season closer!")
+}
+else
+{
+document.write("Thanks for a fantastic season! Come back often to find out when the Boneheads and NUMB next perform!");
+}
+</script></p>
+<p style="border-top: 1px dotted rgb(221, 221, 221); font-size: 11px; margin-top: 10px; padding-top: 10px;">
+<a href="http://www.facebook.com/pages/NUMB-Trombones/169383846425">NUMB
+Trombones on Facebook</a> <br>
+<a href="http://www.facebook.com/pages/NUMB-Trombones/169383846425">
+<img src="facebookbadgemockup.png"></a> </p>
+</div>
+<div id="Testimonials" style="width: 200px; height: auto; margin-top: 15px; margin-bottom: 5px;">
+<a href="testimonials.html"><img src="juneautestimonialad.png"></a> </div>
+<!-- <div id="videoBar-bar" style="overflow: auto; height: 600px;"> <span style="color:#676767;font-size:11px;margin:10px;padding:4px;">Loading...</span> </div> -->
+</div>
+</div>
+</div>
+<div id="Footer"> Contact Us: <a href="mailto:NUMB.Boneheads@gmail.com">NUMB.Boneheads@gmail.com</a><br>
+<a href="http://numb.northwesternbands.org/">Northwestern
+University 'Wildcat' Marching Band</a> </div>
+</body></html>
