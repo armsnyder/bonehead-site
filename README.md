@@ -9,10 +9,10 @@ At first the objective will be to better organize the code and update certain el
 originally intended to be regularly updated. Eventually, we can focus on larger design questions like 
 whether we want to add fun little interactive elements and whatnot.
 
-I (Flame) brought the site to GitHub because although it was is intent to give the site a facelift, 
+I (Flame) brought the site to GitHub because although it was my intent to give the site a facelift, 
 I don't know if I can do it alone. I by no means _expect_ any Boneheads to lend their assistance, but if 
 anyone feels like helping, I would greatly appreciate it! Please let me know if you would like to be 
-added as a contributer.
+added as a contributor.
 
 Smooches,  
 Flame
