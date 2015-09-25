@@ -1,16 +1,21 @@
-<?
+<?php
+
+require_once(__DIR__.'/../secret/passwords.php');
+
 function initGlobals() {
+	global $passwords;
 	// Adds custom values to GLOBAL array and sets constants
 	$GLOBALS['db'] = array(
 		'server' => 'localhost',
 		'user' => 'boneheads',
-		'pass' => 'B5KYEPNEYNrUCdqM',
+		'pass' => $passwords['database'],
 		'database' => 'boneheads',
 		'conn' => NULL,
 		'connected' => false
 		);
 	$GLOBALS['req'] = array(
-		'a' => NULL
+		'a' => NULL,
+		'text' => NULL
 	);
 	$GLOBALS['c'] = array(
 		'filename_len' => 6
@@ -105,4 +110,7 @@ function getSqlArray($sql) {
 	return $result;
 }
 
-?>
+function validate($text) {
+	global $passwords;
+	return strcmp($text, $passwords['boneheads'])==0;
+}

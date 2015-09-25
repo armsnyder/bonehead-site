@@ -1,22 +1,23 @@
 <?
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Credentials: true"); 
-             header('Access-Control-Allow-Headers: X-Requested-With');
-             header('Access-Control-Allow-Headers: Content-Type');
-             header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
-             header('Access-Control-Max-Age: 86400'); 
+header('Access-Control-Allow-Headers: X-Requested-With');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+header('Access-Control-Max-Age: 86400');
 header("Content-Type: application/json; charset=UTF-8");
 
 require('util.php');
 
 function main() {
 	init();
-	connect();
 	switch($GLOBALS['req']['a']) {
 		case 'getSongs':
+			connect();
 			display('songs', getSongs());
 			break;
 		case 'getSongsMin':
+			connect();
 			display('songsMin', getSongsMin());
 			break;
 		case 'add100':
@@ -24,7 +25,11 @@ function main() {
 			display('done',0);
 			break;
 		case 'getMembers':
+			connect();
 			display('members', getMembers());
+			break;
+		case 'validate':
+			display('valid', validate($GLOBALS['req']['text']));
 			break;
 	}
 	echo json_encode($GLOBALS['final_print']);

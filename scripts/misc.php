@@ -1,5 +1,10 @@
 <?
-header("Content-Type: application/json; charset=UTF-8");
+header('Access-Control-Allow-Origin: *');
+header('content-type: application/json; charset=utf-8');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+
+require_once(__DIR__.'/../secret/passwords.php');
 
 function main() {
 	init();
@@ -29,11 +34,16 @@ function getMembers() {
 	return $result;
 }
 
+function addMember() {
+
+}
+
 function init() {
+	global $passwords;
 	$GLOBALS['db'] = array(
 		'server' => 'localhost',
 		'user' => 'boneheads',
-		'pass' => 'B5KYEPNEYNrUCdqM',
+		'pass' => $passwords['database'],
 		'database' => 'boneheads',
 		'conn' => NULL,
 		'connected' => false
