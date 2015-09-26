@@ -75,7 +75,15 @@ function getMembers() {
 }
 
 function addMember() {
-
+	$allMembers = getMembers();
+	$allImageNames = array();
+    foreach($allMembers['alums'] as $member) {
+        $allImageNames[explode('.',$member['photo'])[0]] = null;
+    }
+    foreach($allMembers['current'] as $member) {
+        $allImageNames[explode('.',$member['photo'])[0]] = null;
+    }
+    return $allImageNames;
 }
 
 main();
