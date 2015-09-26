@@ -1,13 +1,25 @@
 angular.module("updateBio")
-    .controller('UpdateBioController', function($scope, UpdateBioService) {
+    .controller('UpdateBioController', function($scope, UpdateBioService, $http) {
+        var phpURL = 'http://groups.northwestern.edu/boneheads/php/main.php';
         $scope.match = null;
         var nameTable = null;
         $scope.status = "";
+        $scope.formEnabled = true;
+        $scope.done = false;
+        $scope.formError = false;
         UpdateBioService.getMembers().then(function() {
             nameTable = createNameTable(UpdateBioService.members);
         });
         $scope.submit = function() {
+            $scope.formError = false;
+            $scope.formEnabled = false;
             $scope.status = "Submitting...";
+            $http.post(phpURL, {'a':'addMember','form':$scope.form})
+                .success(function(data) {
+                    onSubmitSuccess();
+                }).error(function() {
+                    onSubmitError();
+                });
         };
         $scope.findMatch = function() {
             var enteredName = $scope.form.gov_name;
@@ -38,6 +50,23 @@ angular.module("updateBio")
                 }
             });
             $scope.match = null;
+        }
+        function clearForm() {
+            angular.forEach($scope.form, function(value, key) {
+                if ($scope.form.hasOwnProperty(key)) {
+                    $scope.form[key] = '';
+                }
+            });
+        }
+        function onSubmitSuccess() {
+            clearForm();
+            $scope.formEnabled = true;
+            $scope.done = true;
+        }
+        function onSubmitError() {
+            $scope.status = '';
+            $scope.formError = true;
+            $scope.formEnabled = true;
         }
         function createNameTable(members) {
             var result = {};

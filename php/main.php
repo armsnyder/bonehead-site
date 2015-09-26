@@ -31,6 +31,9 @@ function main() {
 		case 'validate':
 			display('valid', validate($GLOBALS['req']['text']));
 			break;
+        case 'addMember':
+            connect();
+            display('add', addMember());
 	}
 	echo json_encode($GLOBALS['final_print']);
 	disconnect();
@@ -71,5 +74,8 @@ function getMembers() {
 	return $result;
 }
 
+function addMember() {
+
+}
+
 main();
-?>

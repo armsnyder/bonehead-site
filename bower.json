@@ -18,5 +18,9 @@
   "dependencies": {
     "angular": "~1.4.6",
     "bootstrap": "~3.3.5"
+  },
+  "devDependencies": {
+    "jasmine-core": "jasmine#~2.3.4",
+    "karma": "~0.4.6"
   }
 }
