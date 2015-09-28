@@ -1,24 +1,59 @@
 angular.module("updateBio")
-    .controller('UpdateBioController', function($scope, UpdateBioService, $http) {
-        var phpURL = 'http://groups.northwestern.edu/boneheads/php/main.php';
+    .controller('UpdateBioController', function($scope, UpdateBioService) {
         $scope.match = null;
         var nameTable = null;
         $scope.status = "";
         $scope.formEnabled = true;
         $scope.done = false;
-        $scope.formError = false;
-        UpdateBioService.getMembers().then(function() {
+        $scope.formError = '';
+        $scope.uploadError = '';
+        $scope.pictureUrl = '';
+        $scope.uploadInProgress = false;
+        UpdateBioService.getMembers().success(function() {
             nameTable = createNameTable(UpdateBioService.members);
         });
+        $scope.uploadFile = function(files) {
+            if ($scope.uploadInProgress) {
+                $scope.uploadError = 'Upload in progress. Please wait.';
+                return;
+            }
+            $scope.uploadInProgress = true;
+            $scope.uploadError = '';
+            $scope.pictureUrl = '';
+            UpdateBioService.uploadFile(files)
+                .success(function(data) {
+                    $scope.uploadError = '';
+                    $scope.uploadInProgress = false;
+                    if (data.hasOwnProperty('success')) {
+                        $scope.pictureUrl = UpdateBioService.getImagePath(data.success);
+                        $scope.form.picture = data.success;
+                    } else {
+                        $scope.uploadError = 'Please ensure this is a valid image file under 1 Mb in size.'
+                    }
+                })
+                .error(function() {
+                    $scope.uploadInProgress = false;
+                    $scope.uploadError = 'Please ensure this is a valid image file under 1 Mb in size.'
+                });
+        };
         $scope.submit = function() {
-            $scope.formError = false;
+            $scope.formError = '';
             $scope.formEnabled = false;
             $scope.status = "Submitting...";
-            $http.post(phpURL, {'a':'addMember','form':$scope.form})
+            UpdateBioService.addMember($scope.form)
                 .success(function(data) {
-                    onSubmitSuccess();
-                }).error(function() {
-                    onSubmitError();
+                    if (data.hasOwnProperty('success')) {
+                        onSubmitSuccess();
+                        return;
+                    }
+                    if (data.hasOwnProperty('error')) {
+                        onSubmitError(data.error);
+                        return;
+                    }
+                    onSubmitError('Unknown error.');
+
+                }).error(function(err) {
+                    onSubmitError(err);
                 });
         };
         $scope.findMatch = function() {
@@ -36,10 +71,13 @@ angular.module("updateBio")
             }
         };
         $scope.clearFile = function() {
-            console.log("old photo: "+$scope.form.picture);
+            $scope.pictureUrl = '';
             $scope.form.picture = null;
         };
         $scope.useOldFile = function() {
+            if ($scope.match != null) {
+                $scope.pictureUrl = UpdateBioService.getImagePath($scope.match.picture);
+            }
             $scope.form.picture = $scope.match.picture;
         };
         function clearMatch() {
@@ -50,22 +88,16 @@ angular.module("updateBio")
                 }
             });
             $scope.match = null;
-        }
-        function clearForm() {
-            angular.forEach($scope.form, function(value, key) {
-                if ($scope.form.hasOwnProperty(key)) {
-                    $scope.form[key] = '';
-                }
-            });
+            $scope.pictureUrl = '';
         }
         function onSubmitSuccess() {
-            clearForm();
+            //clearForm();
             $scope.formEnabled = true;
             $scope.done = true;
         }
-        function onSubmitError() {
+        function onSubmitError(err) {
             $scope.status = '';
-            $scope.formError = true;
+            $scope.formError = 'Error message: '+err;
             $scope.formEnabled = true;
         }
         function createNameTable(members) {
@@ -82,6 +114,7 @@ angular.module("updateBio")
             return result;
         }
         function fillIn(member) {
+            $scope.pictureUrl = UpdateBioService.getImagePath(member.picture);
             $scope.match = member;
             angular.forEach(member, function(value, key) {
                 if (key == 'year') {
@@ -91,5 +124,8 @@ angular.module("updateBio")
                 }
             });
             $scope.form.radio = 0;
+        }
+        function getImageIfExists(imageName) {
+            return UpdateBioService.getImageIfExists(imageName);
         }
     });

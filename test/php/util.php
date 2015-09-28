@@ -104,5 +104,3 @@ function getSqlArray($sql) {
 	}
 	return $result;
 }
-
-?>

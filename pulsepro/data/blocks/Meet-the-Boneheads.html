@@ -1,35 +1,63 @@
-<script type="application/javascript" src="http://groups.northwestern.edu/boneheads/scripts/angular.min.js"></script>
+<style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+    }
+    .profilePic {
+        display: inline-block;
+        width: 150px;
+        height: 200px;
+        margin: 0px 15px 0px 15px;
+        float: right;
+        background-position: center center;
+        background-size: cover;
+    }
+</style>
+<script type="application/javascript" src="http://groups.northwestern.edu/boneheads/bower_components/angular/angular.min.js"></script>
 <script type="application/javascript">
 angular.module('meet',[])
 .controller('MembersController', function($scope, MembersService) {
 	$scope.members = {};
+    var galleryUrl = 'http://groups.northwestern.edu/boneheads/uploads/';
 	$scope.getPic = function(file) {
-		return 'http://groups.northwestern.edu/boneheads/pulsepro/data/img/gallery/meet-us-pictures/'+file;
-	}
+		return galleryUrl+file;
+	};
 	MembersService.getMembers().then(function() {
 		$scope.members = MembersService.members;
+        console.log($scope.members);
 	});
+    $scope.toInt = function(value) {
+        return parseInt(value);
+    }
 })
 .factory('MembersService', function($http) {
-	var url = 'http://groups.northwestern.edu/boneheads/scripts/misc.php';
+	var url = 'http://groups.northwestern.edu/boneheads/php/main.php';
 	var factory = {};
 	factory.members = {};
 	factory.getMembers = function() {
 		return $http.post(url, {a:'getMembers'})
 		.success(function(data) {
 			factory.members = data.members;
+            for (var i=0; i<factory.members['current'].length; i++) {
+                factory.members['current'][i].year = parseInt(factory.members['current'][i].year);
+                console.log('current'+factory.members['current'][i].year);
+            }
+            for (i=0; i<factory.members['alums'].length; i++) {
+                factory.members['alums'][i].year = parseInt(factory.members['alums'][i].year);
+                console.log('alum'+factory.members['alums'][i].year);
+            }
 		});
-	}
+	};
 	return factory;
 });
 </script>
-<div x-ng-app="meet" x-ng-controller="MembersController">
+<div x-ng-app="meet" x-ng-controller="MembersController" ng-cloak>
 <h1>Meet the Boneheads</h1>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div x-ng-repeat="x in members.current | orderBy:'year'">
-    <img src="{{getPic(x.picture)}}" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px;" />
+    <img class="profilePic" style="background-image: url('{{getPic(x.picture)}}')" />
     <div><u>Name</u>: {{x.gov_name}}</div>
+    <div ng-hide="x.name.length==0"><u>Nickname</u>: {{x.name}}</div>
     <div><u>Major</u>: {{x.major}}</div>
     <div><u>Graduation Year</u>: {{x.year}}</div>
     <div><u>Height</u>: {{x.height}}</div>
@@ -49,8 +77,9 @@ angular.module('meet',[])
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div x-ng-repeat="x in members.alums | orderBy:'year':true">
-    <img src="{{getPic(x.picture)}}" style="margin-top: 0px; margin-bottom: 0px; margin-left: 15px; margin-right: 15px; float: right; width: 150px;" />
+    <img class="profilePic" style="background-image: url('{{getPic(x.picture)}}')" />
     <div><u>Name</u>: {{x.gov_name}}</div>
+    <div ng-hide="x.name.length==0"><u>Nickname</u>: {{x.name}}</div>
     <div><u>Major</u>: {{x.major}}</div>
     <div><u>Graduation Year</u>: {{x.year}}</div>
     <div><u>Height</u>: {{x.height}}</div>

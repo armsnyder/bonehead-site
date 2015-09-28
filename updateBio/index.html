@@ -6,6 +6,9 @@
     <title>Update About Me</title>
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
         .jumbotron, body {
             background-color: #8b75a3;
             margin:0;
@@ -20,12 +23,21 @@
             display: flex;
             align-items: center;
         }
+        .thumb {
+            display: inline-block;
+            width: 150px;
+            height: 200px;
+            margin: 5px;
+            border: 3px solid #8b75a3;
+            background-position: center center;
+            background-size: cover;
+        }
     </style>
 </head>
 <body ng-app="updateBio" ng-controller="UpdateBioController">
 <div class="jumbotron vertical-center">
 <div class="col-md-offset-2 col-md-8">
-    <div class="panel panel-success" ng-hide="!done">
+    <div class="panel panel-success" ng-hide="!done" ng-cloak>
         <div class="panel-heading">
             <h2 class="panel-title">Success!</h2>
         </div>
@@ -33,108 +45,112 @@
             <p><span ng-hide="match==null">Your bio has been updated!</span><span ng-hide="match!=null">Your bio has been added to the Bonehead site!</span> <a href="http://groups.northwestern.edu/boneheads/meetus.php">Click here</a> to see!</p>
         </div>
     </div>
-    <div class="panel panel-danger" ng-hide="!formError">
+    <div class="panel panel-danger" ng-hide="formError.length==0" ng-cloak>
         <div class="panel-heading">
             <h2 class="panel-title">Error</h2>
         </div>
         <div class="panel-body">
             <p>There was a problem submitting your form. Maybe try again?</p>
+            <p>{{formError}}</p>
         </div>
     </div>
-    <div class="panel panel-default" ng-hide="done">
+    <div class="panel panel-default" ng-hide="done" ng-cloak>
         <div class="panel-heading">
             <h2 class="panel-title">About Me</h2>
         </div>
         <div class="panel-body">
-            <p>Hello Bonehead. Whether you're a current member or an alum, whether you are answering these questions for the first time or just want to update your old answers, fill out this form to add your biography to the website!</p>
+            <p>Hello Bonehead. Use this form to add your biography to the website or update your old bio. Remember that our audience is future Boneheads, so nothing too scary please.</p>
             <form novalidate class="form-horizontal" name="myForm">
                 <div class="form-group" ng-class="myForm.inputGovName.$touched || match!=null ? myForm.inputGovName.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputGovName" class="col-sm-3 control-label">Government Name</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputGovName" id="inputGovName" ng-model="form.gov_name" required full-name ng-change="findMatch()" ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputGovName" id="inputGovName" ng-model="form.gov_name" required full-name ng-change="findMatch()" ng-disabled="!formEnabled" maxlength="100">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputName.$touched || match!=null ? myForm.inputName.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputName" class="col-sm-3 control-label">Nickname</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="form.name" ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="form.name" ng-disabled="!formEnabled" maxlength="100">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputMajor.$touched || match!=null ? myForm.inputMajor.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputMajor" class="col-sm-3 control-label">Major</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputMajor" id="inputMajor" ng-model="form.major" required ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputMajor" id="inputMajor" ng-model="form.major" required ng-disabled="!formEnabled" maxlength="100">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputYear.$touched || match!=null ? myForm.inputYear.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputYear" class="col-sm-3 control-label">Graduation Year</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" name="inputYear" id="inputYear" ng-model="form.year" required ng-disabled="!formEnabled">
+                        <input type="number" class="form-control" name="inputYear" id="inputYear" ng-model="form.year" required ng-disabled="!formEnabled" max="32767" min="-32768">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputHeight.$touched || match!=null ? myForm.inputHeight.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputHeight" class="col-sm-3 control-label">Height</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputHeight" id="inputHeight" ng-model="form.height" required ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputHeight" id="inputHeight" ng-model="form.height" required ng-disabled="!formEnabled" maxlength="100">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputTV.$touched || match!=null ? myForm.inputTV.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputTV" class="col-sm-3 control-label">Favorite TV Show</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputTV" id="inputTV" ng-model="form.tv" required ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputTV" id="inputTV" ng-model="form.tv" required ng-disabled="!formEnabled" maxlength="200">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputFood.$touched || match!=null ? myForm.inputFood.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputFood" class="col-sm-3 control-label">Favorite Food</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputFood" id="inputFood" ng-model="form.food" required ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputFood" id="inputFood" ng-model="form.food" required ng-disabled="!formEnabled" maxlength="200">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputJoined.$touched || match!=null ? myForm.inputJoined.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputJoined" class="col-sm-3 control-label">Why I Joined NUMB</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputJoined" id="inputJoined" ng-model="form.joined" required ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputJoined" id="inputJoined" ng-model="form.joined" required ng-disabled="!formEnabled" maxlength="200">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputMemory.$touched || match!=null ? myForm.inputMemory.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputMemory" class="col-sm-3 control-label">Favorite Bonehead Memory</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputMemory" id="inputMemory" ng-model="form.memory" required ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputMemory" id="inputMemory" ng-model="form.memory" required ng-disabled="!formEnabled" maxlength="300">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputUnderwear.$touched || match!=null ? myForm.inputUnderwear.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputUnderwear" class="col-sm-3 control-label">Boxers or Briefs</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputUnderwear" id="inputUnderwear" ng-model="form.underwear" required ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputUnderwear" id="inputUnderwear" ng-model="form.underwear" required ng-disabled="!formEnabled" maxlength="200">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputTalent.$touched || match!=null ? myForm.inputTalent.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputTalent" class="col-sm-3 control-label">Secret Talents</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputTalent" id="inputTalent" ng-model="form.talent" required ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputTalent" id="inputTalent" ng-model="form.talent" required ng-disabled="!formEnabled" maxlength="300">
                     </div>
                 </div>
                 <div class="form-group" ng-class="myForm.inputColor.$touched || match!=null ? myForm.inputColor.$invalid ? 'has-error' : 'has-success' : ''">
                     <label for="inputColor" class="col-sm-3 control-label">Favorite Color</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="inputColor" id="inputColor" ng-model="form.color" required ng-disabled="!formEnabled">
+                        <input type="text" class="form-control" name="inputColor" id="inputColor" ng-model="form.color" required ng-disabled="!formEnabled" maxlength="200">
                     </div>
                 </div>
                 <div class="form-group" ng-hide="match==null">
                     <div class="col-sm-offset-3 col-sm-4">
-                        <input type="radio" name="inputRadio" id="inputRadio1" ng-model="form.radio" value="0" ng-click="useOldFile()" ng-disabled="!formEnabled">
+                        <input type="radio" name="inputRadio" id="inputRadio1" ng-model="form.radio" value="0" ng-click="useOldFile();myForm.inputPicture=null;" ng-disabled="!formEnabled">
                         <label for="inputRadio1" class="control-label">Use old photo</label>
-                    </div><br>
-                    <div class="col-sm-offset-3 col-sm-4">
+                        <br>
                         <input type="radio" name="inputRadio" id="inputRadio2" ng-model="form.radio" value="1" ng-click="clearFile()" ng-disabled="!formEnabled">
                         <label for="inputRadio2" class="control-label">Upload new photo</label>
                     </div>
+                    <div class="col-sm-4 thumb" ng-hide="pictureUrl.length==0 || form.radio==1" style="background-image: url('{{pictureUrl}}');"></div>
                 </div>
-                <div class="form-group" ng-class="myForm.inputPicture.$dirty || myForm.inputPicture.$touched ? myForm.inputPicture.$invalid ? 'has-error' : 'has-success' : ''" ng-hide="match!=null&&form.radio==0">
-                    <label for="inputPicture" class="col-sm-3 control-label">Picture</label>
-                    <div class="col-sm-9">
-                        <input type="file" name="inputPicture" id="inputPicture" ng-model="form.picture" accept="image/png,image/jpeg,image/gif" valid-file required ng-disabled="!formEnabled">
+                <div class="form-group" ng-class="myForm.inputPicture.$dirty || myForm.inputPicture.$touched ? myForm.inputPicture.$invalid || uploadError.length>0 ? 'has-error' : 'has-success' : ''" ng-hide="match!=null&&form.radio==0">
+                    <label for="inputPicture" class="col-sm-3 control-label" ng-hide="match!=null&&form.radio==0">Picture</label>
+                    <div class="col-sm-5">
+                        <input type="file" name="inputPicture" id="inputPicture" ng-model="form.picture" accept="image/png,image/jpeg,image/gif" valid-file required ng-disabled="!formEnabled" onchange="angular.element(this).scope().uploadFile(this.files)" capture="camera">
+                    <span class="help-block" ng-hide="uploadError.length==0">{{uploadError}}</span>
                     </div>
+                    <!--<div class="col-sm-4 thumb" ng-hide="getImageIfExists(form.picture).length==0" style="background-image: url('{{getImageIfExists(form.picture)}}');">-->
+                    <div class="col-sm-4 thumb" ng-hide="pictureUrl.length==0" style="background-image: url('{{pictureUrl}}');"></div>
                 </div>
                 <hr>
                 <div class="form-group" ng-class=" myForm.inputPassword.$valid ? 'has-success' : myForm.inputPassword.$touched ? 'has-error' : ''">
@@ -145,7 +161,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-2">
-                        <input type="submit" class="btn btn-primary btn-block" value="Submit" ng-disabled="!myForm.$valid||!formEnabled" ng-click="submit()">
+                        <input type="submit" class="btn btn-primary btn-block" value="Submit" ng-disabled="!myForm.$valid||!formEnabled||uploadError.length>0" ng-click="submit()">
                     </div>
                     <p style="margin: 0;" class="col-sm-7" ng-bind="status"></p>
                 </div>

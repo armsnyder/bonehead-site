@@ -15,7 +15,8 @@ function initGlobals() {
 		);
 	$GLOBALS['req'] = array(
 		'a' => NULL,
-		'text' => NULL
+		'text' => NULL,
+		'form' => NULL
 	);
 	$GLOBALS['c'] = array(
 		'filename_len' => 6
@@ -113,4 +114,78 @@ function getSqlArray($sql) {
 function validate($text) {
 	global $passwords;
 	return strcmp($text, $passwords['boneheads'])==0;
+}
+
+function getAllImageNames() {
+	$allMembers = getMembers();
+	$allImageNames = array();
+	foreach($allMembers['alums'] as $member) {
+		$pictureExplode = explode('.',$member['picture']);
+		$allImageNames[$pictureExplode[0]] = null;
+	}
+	foreach($allMembers['current'] as $member) {
+		$pictureExplode = explode('.',$member['picture']);
+		$allImageNames[$pictureExplode[0]] = null;
+	}
+	return $allImageNames;
+}
+
+function getAllImageNamesFull() {
+	$allMembers = getMembers();
+	$allImageNames = array();
+	foreach($allMembers['alums'] as $member) {
+		$picKey = $member['picture'];
+		$allImageNames[$picKey] = null;
+	}
+	foreach($allMembers['current'] as $member) {
+		$picKey = $member['picture'];
+		$allImageNames[$picKey] = null;
+	}
+	return $allImageNames;
+}
+
+function getNewImageName() {
+	$allImageNames = getAllImageNames();
+	do {
+		$newImageName = getRandomStr(8);
+	} while(array_key_exists($newImageName, $allImageNames));
+	return $newImageName;
+}
+
+function saveFile($fileName, $maxSize){
+	$target_dir = __DIR__."/../uploads/";
+	$target_file = $target_dir . basename($_FILES["file"]["name"]);
+	$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+	$targetShortName = $fileName . '.' . $imageFileType;
+	$target_file = $target_dir . $targetShortName;
+	// Check if image file is a actual image or fake image
+	if (isset($_POST["submit"])) {
+		$check = getimagesize($_FILES["file"]["tmp_name"]);
+		if ($check === false) {
+			return array('error'=>"File is not an image.");
+		}
+	}
+	// Check if file already exists
+	if (file_exists($target_file)) {
+		return array('error'=>"Sorry, file already exists.");
+	}
+	// Check file size
+	if ($_FILES["file"]["size"] > $maxSize) {
+		return array('error'=>"Sorry, your file is too large.");
+	}
+	if ($_FILES["file"]["size"] < 1024) {
+		return array('error'=>"Sorry, your file is too small.");
+	}
+	// Allow certain file formats
+	if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+		&& $imageFileType != "gif"
+	) {
+		return array('error'=>"Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+	}
+	// if everything is ok, try to upload file
+	if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+		return array('success'=>$targetShortName);
+	} else {
+		return array('error'=>"Sorry, there was an error uploading your file. Temp: ".$_FILES["file"]["tmp_name"]."; Dest: ".$target_file);
+	}
 }
